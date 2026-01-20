@@ -51,6 +51,30 @@ void space_efficient_alignment(const char *X, const char *Y, int *result) {
     free(curr);
 }
 
+void reverse_string(const char *src, char *dst) {
+    int len = strlen(src);
+    for (int i = 0; i < len; i++) {
+        dst[i] = src[len - 1 - i];
+    }
+    dst[len] = '\0';
+}
+
+void backward_space_efficient_alignment(const char *X, const char *Y, int *result) {
+    int n = strlen(X);
+    int m = strlen(Y);
+
+    char *X_rev = malloc((n + 1) * sizeof(char));
+    char *Y_rev = malloc((m + 1) * sizeof(char));
+
+    reverse_string(X, X_rev);
+    reverse_string(Y, Y_rev);
+
+    space_efficient_alignment(X_rev, Y_rev, result);
+
+    free(X_rev);
+    free(Y_rev);
+}
+
 int main() {
     const char *X = "GATTACA";
     const char *Y = "GCATGCU";
@@ -60,10 +84,17 @@ int main() {
     int *backward = malloc((m + 1) * sizeof(int));
 
     space_efficient_alignment(X, Y, forward);
+    backward_space_efficient_alignment(X, Y, backward);
 
     printf("Forward last column:\n");
     for (int j = 0; j <= m; j++) {
         printf("%d ", forward[j]);
+    }
+    printf("\n");
+
+    printf("Backward last column:\n");
+    for (int j = 0; j <= m; j++) {
+        printf("%d ", backward[j]);
     }
     printf("\n");
 
