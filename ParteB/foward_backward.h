@@ -1,15 +1,6 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define MATCH 0
-#define MISMATCH 1
-#define GAP 2
-
-int score(char a, char b) {
-    return (a == b) ? MATCH : MISMATCH;
-}
 
 void space_efficient_alignment(const char *X, const char *Y, int *result) {
     int n = strlen(X);
@@ -73,33 +64,4 @@ void backward_space_efficient_alignment(const char *X, const char *Y, int *resul
 
     free(X_rev);
     free(Y_rev);
-}
-
-int main() {
-    const char *X = "GATTACA";
-    const char *Y = "GCATGCU";
-
-    int m = strlen(Y);
-    int *forward = malloc((m + 1) * sizeof(int));
-    int *backward = malloc((m + 1) * sizeof(int));
-
-    space_efficient_alignment(X, Y, forward);
-    backward_space_efficient_alignment(X, Y, backward);
-
-    printf("Forward last column:\n");
-    for (int j = 0; j <= m; j++) {
-        printf("%d ", forward[j]);
-    }
-    printf("\n");
-
-    printf("Backward last column:\n");
-    for (int j = 0; j <= m; j++) {
-        printf("%d ", backward[j]);
-    }
-    printf("\n");
-
-    free(forward);
-    free(backward);
-
-    return 0;
 }
