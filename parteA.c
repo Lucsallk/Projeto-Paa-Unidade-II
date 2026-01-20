@@ -3,9 +3,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#define MATCH 1
-#define MISMATCH -1
-#define GAP -1
+#define MATCH 0
+#define MISMATCH 1
+#define GAP 2
 
 int score(char a, char b) {
     return (a == b) ? MATCH : MISMATCH;
